@@ -25,9 +25,37 @@ Python을 사용하고 있다면, input 대신 sys.stdin.readline을 사용할 �
 각 테스트케이스마다 A+B를 한 줄에 하나씩 순서대로 출력한다.
 
 ## 풀이
+BufferedReader, BufferedWriter을 이용해 푸는 문제이다.
+BufferedReader은 한 줄 단위로 읽어오고, String로만 값을 얻어올 수 있기 때문에 Scanner에 비해 손이 많이 간다. 
 
+나 같은 경우는 "2 3"과 같은 데이터를 처리하기 위해 split을 사용해 처리했다.
+(StringTokenize로도 처리가 가능하다)
+
+버퍼에 공간이 남아있거나 flush를 사용하지 않은 경우에는 버퍼에만 쌓아두고 내용을 전송하지 않는다. 모든 결과를 처리하고 맨 마지막에 한 번만 해주면 된다.
+
+## 부족한 부분
+BufferedReader과 BufferedWriter의 사용이 익숙하지 않았다. 좀 더 많은 예제를 통해 연습이 필요하다고 생각된다.
 
 ## 코드 
 ```kotlin
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
+fun main() {
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+    val cases = Integer.parseInt(br.readLine())
+
+    for(case: Int in 0 until cases) {
+        val ab: List<String> = br.readLine().split(" ")
+        val a = Integer.parseInt(ab[0])
+        val b = Integer.parseInt(ab[1])
+
+        bw.write((a + b).toString() + "\n")
+    }
+    bw.flush()
+    bw.close()
+}
 ```
